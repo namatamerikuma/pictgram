@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-	VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])[a-z\d]{8,32}+\z/
+	VALID_PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
 	VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/
 
 	validates :name, 
@@ -17,4 +17,9 @@ class User < ApplicationRecord
 
 
 	 has_secure_password
+
+	 has_many :topics
+	 has_many :favorites
+	 has_many :favorite_topics, through: :favorites, source: 'topic'
+	 has_many :comments
 end

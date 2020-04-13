@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   def index
-  	@topics = Topic.all
+  	@topics = Topic.all.includes(:favorite_users)
+
   end
   
   def new
@@ -19,7 +20,17 @@ class TopicsController < ApplicationController
   end
 
   private
+
   def topic_params
 	params.require(:topic).permit(:image, :description)
   end
+
+  def favorites
+    @topic = Topic.find_by(id: params[:id])
+    @user = @post.user
+    @favorites_count = Favorite.where(topic_id: @topic.id).count
+  end
+
+
+  include ApplicationHelper
 end
