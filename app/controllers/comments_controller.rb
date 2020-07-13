@@ -23,3 +23,5 @@ class CommentsController < ApplicationController
 	end
 
 end
+
+#test
